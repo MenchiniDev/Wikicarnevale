@@ -5,19 +5,31 @@ import {
   View,
   ScrollView,
   SafeAreaView,
-  TouchableWithoutFeedback,
+  Pressable,
   GestureResponderEvent,
   Animated,
   Image,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import * as Font from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  // Valore iniziale del menu fuori schermo (menu width = 250)
+  const [fontsLoaded, setFontsLoaded] = useState(false);
   const slideAnim = useRef(new Animated.Value(-250)).current;
 
   useEffect(() => {
+    async function loadFonts() {
+      await Font.loadAsync({
+        'Bingo': require('../../assets/fonts/BINGO.ttf'),
+      });
+      setFontsLoaded(true);
+    }
+    loadFonts();
+
+
     Animated.timing(slideAnim, {
       toValue: menuOpen ? 0 : -250,
       duration: 300,
@@ -29,9 +41,32 @@ export default function App() {
     setMenuOpen(prev => !prev);
   }
 
-  function handlePress(event: GestureResponderEvent): void {
-    // Logica placeholder per altri eventi di pressione
+  if (!fontsLoaded) {
+    SplashScreen.preventAutoHideAsync();
   }
+
+  const colorAnim = useRef(new Animated.Value(0)).current;
+
+const startAnimation = () => {
+  Animated.timing(colorAnim, {
+    toValue: 1,
+    duration: 500,
+    useNativeDriver: false,
+  }).start();
+};
+
+const resetAnimation = () => {
+  Animated.timing(colorAnim, {
+    toValue: 0,
+    duration: 500,
+    useNativeDriver: false,
+  }).start();
+};
+
+const textColor = colorAnim.interpolate({
+  inputRange: [0, 1],
+  outputRange: ['#fff', '#ff414d'], // Da bianco a rosso
+});
 
   return (
     <SafeAreaView style={styles.container}>
@@ -47,7 +82,6 @@ export default function App() {
           <Text style={styles.menuItem}>Città</Text>
           <Text style={styles.menuItem}>Libri</Text>
           <Text style={styles.menuItem}>Giochi</Text>
-          <br></br>
           <Text style={styles.menuItem}>Ringraziamenti</Text>
           <Text style={styles.menuItem}>Il Progetto</Text>
         </View>
@@ -55,22 +89,17 @@ export default function App() {
 
       {/* Header con Hamburger, logo e titolo */}
       <View style={styles.header}>
-        <TouchableWithoutFeedback onPress={toggleMenu}>
-          <View style={styles.hamburgerContainer}>
-            <Ionicons name="menu" size={32} color="#fff" />
-          </View>
-        </TouchableWithoutFeedback>
         <View style={styles.titleContainer}>
-          <Image
-            source={require('../../assets/images/logo.jpg')}
-            style={styles.logoImage}
-          />
-          <View style={styles.textContainer}>
-            <Text style={styles.logo}>WikiCarnevaleViareggio</Text>
-            <Text style={styles.subtitle}>
-              Tutto il Carnevale di Viareggio in un click
-            </Text>
-          </View>
+          <Image source={require('../../assets/images/logo.jpg')} style={styles.logoImage} />
+            <View style={styles.textContainer}>
+          <Text style={styles.logo}>
+          <Text style={{ color: '#ff414d' }}>WikiCarnevaleViareggio</Text>
+            {/* <Pressable onPressIn={startAnimation} onPressOut={resetAnimation}>
+            <Animated.Text style={{ color: textColor, fontSize: 24, marginBottom: 0}}>CarnevaleViareggio</Animated.Text>
+          </Pressable> */}
+        </Text>
+      <Text style={styles.subtitle}>Tutto il Carnevale di Viareggio in un click</Text>
+    </View>
         </View>
       </View>
 
@@ -118,10 +147,9 @@ export default function App() {
           <Text style={styles.listItem}>
             Prima Categoria: Sic transit gloria mundi (C. Lombardi, L...)
           </Text>
-          <Text style={styles.listItem}>Seconda Categoria: ...</Text>
-          <Text style={styles.listItem}>Terza Categoria: ...</Text>
-          <Text style={styles.listItem}>Maschere isolate: (S. Roggio)</Text>
-          <Text style={styles.listItem}>Maschere in Gruppo: (S. Culla)</Text>
+          <Text style={styles.listItem}>Seconda Categoria: È Tardi È Tardi È Tardi (Matteo Raciti)</Text>
+          <Text style={styles.listItem}>Maschere in Gruppo: Sogna Ragazzo Sogna(S. Bianchi)</Text>
+          <Text style={styles.listItem}>Maschere isolate: Diocantante (S. Ciulli)</Text>
         </View>
 
         {/* Sezione Costruzioni in gara */}
@@ -133,6 +161,9 @@ export default function App() {
           {/* Aggiungi altre voci secondo necessità */}
         </View>
       </ScrollView>
+      <Pressable onPress={toggleMenu} style={styles.bottomMenuButton}>
+        <Ionicons name="ellipsis-horizontal" size={24} color="#fff" />
+      </Pressable>
     </SafeAreaView>
   );
 }
@@ -160,7 +191,7 @@ const styles = StyleSheet.create({
   hamburgerContainer: {
     position: 'absolute',
     left: 16,
-    top: 10,
+    top: 20,
   },
   titleContainer: {
     flexDirection: 'row',
@@ -180,16 +211,18 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#fff',
+    fontFamily: 'BINGO',
+    letterSpacing: 1
   },
   subtitle: {
     fontSize: 14,
     color: '#ccc',
-    marginTop: 2,
+    marginTop: 2
   },
   /* Side Menu */
   sideMenu: {
     position: 'absolute',
-    top: 0,
+    top: 20,
     bottom: 0,
     width: 250,
     backgroundColor: '#333',
@@ -279,5 +312,17 @@ const styles = StyleSheet.create({
   /* Costruzioni */
   constructionsContainer: {
     marginBottom: 20,
+  },
+  bottomMenuButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#333',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 10,
   },
 });
