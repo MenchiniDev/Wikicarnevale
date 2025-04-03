@@ -12,6 +12,8 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { Link } from 'expo-router';
+import EdizioniScreen from '../screens/EdizioniScreen';
 
 
 export default function App() {
@@ -72,17 +74,17 @@ const textColor = colorAnim.interpolate({
       {/* Menu che scorre da sinistra */}
       <Animated.View style={[styles.sideMenu, { transform: [{ translateX: slideAnim }] }]}>
         <View style={styles.menuContainer}>
-          <Text style={styles.menuItem}>Edizioni</Text>
-          <Text style={styles.menuItem}>Costruzioni</Text>
-          <Text style={styles.menuItem}>Canzoni</Text>
-          <Text style={styles.menuItem}>Premi Speciali</Text>
-          <Text style={styles.menuItem}>Teatro</Text>
-          <Text style={styles.menuItem}>Persone</Text>
-          <Text style={styles.menuItem}>Città</Text>
-          <Text style={styles.menuItem}>Libri</Text>
-          <Text style={styles.menuItem}>Giochi</Text>
-          <Text style={styles.menuItem}>Ringraziamenti</Text>
-          <Text style={styles.menuItem}>Il Progetto</Text>
+          <Link href={"../screens/EdizioniScreen"} style={styles.menuItem}>Edizioni</Link>
+          <Link href={"../screens/CostruzioniScreen"} style={styles.menuItem}>Costruzioni</Link>
+          <Link href={"../screens/CanzoniScreen"} style={styles.menuItem}>Canzoni</Link>
+          <Link href={"../screens/PremiSpecialiScreen"} style={styles.menuItem}>Premi Speciali</Link>
+          <Link href={"../screens/TeatroScreen"} style={styles.menuItem}>Teatro</Link>
+          <Link href={"../screens/PersoneScreen"} style={styles.menuItem}>Persone</Link>
+          <Link href={"../screens/CittaScreen"} style={styles.menuItem}>Città</Link>
+          <Link href={"../screens/LibriScreen"} style={styles.menuItem}>Libri</Link>
+          <Link href={"../screens/GiochiScreen"} style={styles.menuItem}>Giochi</Link>
+          <Link href={"../screens/RingraziamentiScreen"} style={styles.menuItem}>Ringraziamenti</Link>
+          <Link href={"../screens/ProgettoScreen"} style={styles.menuItem}>Il Progetto</Link>
         </View>
       </Animated.View>
 
@@ -156,7 +158,6 @@ const textColor = colorAnim.interpolate({
           <Text style={styles.sectionTitle}>Costruzioni in gara</Text>
           <Text style={styles.listItem}>Prima Categoria</Text>
           <Text style={styles.listItem}>Seconda Categoria</Text>
-          <Text style={styles.listItem}>Terza Categoria</Text>
           {/* Aggiungi altre voci secondo necessità */}
         </View>
       </ScrollView>
