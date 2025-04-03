@@ -6,7 +6,6 @@ import {
   ScrollView,
   SafeAreaView,
   Pressable,
-  GestureResponderEvent,
   Animated,
   Image,
 } from 'react-native';
@@ -47,21 +46,21 @@ export default function App() {
 
   const colorAnim = useRef(new Animated.Value(0)).current;
 
-const startAnimation = () => {
-  Animated.timing(colorAnim, {
-    toValue: 1,
-    duration: 500,
-    useNativeDriver: false,
-  }).start();
-};
+// const startAnimation = () => { // possibile animazione per CarnevaleViareggio
+//   Animated.timing(colorAnim, {
+//     toValue: 1,
+//     duration: 500,
+//     useNativeDriver: false,
+//   }).start();
+// };
 
-const resetAnimation = () => {
-  Animated.timing(colorAnim, {
-    toValue: 0,
-    duration: 500,
-    useNativeDriver: false,
-  }).start();
-};
+// const resetAnimation = () => {
+//   Animated.timing(colorAnim, {
+//     toValue: 0,
+//     duration: 500,
+//     useNativeDriver: false,
+//   }).start();
+// };
 
 const textColor = colorAnim.interpolate({
   inputRange: [0, 1],
