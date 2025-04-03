@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 const TeatroScreen: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text>Costruzioni Screen</Text>
+      <Text>Qui ci vanno i teatri</Text>
     </View>
   );
 };

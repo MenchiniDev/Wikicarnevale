@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 const PremiSpecialiScreen: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text>Costruzioni Screen</Text>
+      <Text>Qui i premi speciali</Text>
     </View>
   );
 };
