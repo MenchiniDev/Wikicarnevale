@@ -10,7 +10,7 @@ export default function TabLayout() {
     screenOptions={{
       tabBarActiveTintColor: '#ffd33d',
       headerStyle: {
-        backgroundColor: '#25292e',
+      backgroundColor: '#25292e',
       },
       headerShadowVisible: false,
       headerTintColor: '#fff',
@@ -20,22 +20,22 @@ export default function TabLayout() {
     }}
     >
       <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'home-sharp' : 'home-outline'} color={color} size={24} />
-          ),
-        }}
+      name="index"
+      options={{
+        title: 'Home',
+        tabBarIcon: ({ color, focused }) => (
+        <Ionicons name={focused ? 'home-sharp' : 'home-outline'} color={color} size={24} />
+        ),
+      }}
       />
       <Tabs.Screen
-        name="Coming Soon"
-        options={{
-          title: 'Coming Soon',
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'information-circle' : 'information-circle-outline'} color={color} size={24}/>
-          ),
-        }}
+      name="ComingSoon"
+      options={{
+        title: 'Coming Soon',
+        tabBarIcon: ({ color, focused }) => (
+        <Ionicons name={focused ? 'home-sharp' : 'home-outline'} color={color} size={24}/>
+        ),
+      }}
       />
     </Tabs>
   );
